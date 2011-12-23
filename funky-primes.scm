@@ -7,11 +7,12 @@
     (divisible? number 2))
 
   (define (naive-test number divisor)
-    (if (= number divisor)
-        #t
-        (if (divisible? number divisor)
-            #f
-            (naive-test number (+ divisor 1)))))
+    (cond ((> divisor (sqrt number))
+           #t)
+          ((divisible? number divisor)
+           #f)
+          (else
+           (naive-test number (+ divisor 1)))))
 
   (cond ((= number 2)
          #t)
