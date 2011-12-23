@@ -12,7 +12,9 @@
           ((divisible? number divisor)
            #f)
           (else
-           (naive-test number (+ divisor 1)))))
+           (if (even? divisor)
+               (naive-test number (+ divisor 1))
+               (naive-test number (+ divisor 2))))))
 
   (cond ((= number 2)
          #t)
