@@ -6,6 +6,16 @@
   (define (even? number)
     (divisible? number 2))
 
+  (define (6k+-1-test number idx)
+    (cond ((> (- (* 6 idx) 1) (sqrt number))
+           #t)
+          ((divisible? number (+ (* 6 idx) 1))
+           #t)
+          ((divisible? number (- (* 6 idx) 1))
+           #t)
+          (else
+           (6k+-1-test number (+ idx 1)))))
+
   (define (naive-test number divisor)
     (cond ((> divisor (sqrt number))
            #t)
@@ -21,8 +31,10 @@
         ((or (even? number)
              (= number 1))
          #f)
+        ((divisible? number 3)
+         #f)
         (else
-         (naive-test number 2))))
+         (6k+-1-test number 1))))
 
 (define (prime-digits? num)
   (cond ((and (< num 10)
