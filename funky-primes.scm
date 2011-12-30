@@ -1,48 +1,4 @@
-(define (naive-prime? number)
-
-  (define (divisible? number divisor)
-    (= 0 (remainder number divisor)))
-
-  (define (even? number)
-    (divisible? number 2))
-
-  (define (6k+-1-test number idx)
-    (cond ((> (- (* 6 idx) 1) (sqrt number))
-           #t)
-          ((divisible? number (+ (* 6 idx) 1))
-           #t)
-          ((divisible? number (- (* 6 idx) 1))
-           #t)
-          (else
-           (6k+-1-test number (+ idx 1)))))
-
-  (define (naive-test number divisor)
-    (cond ((> divisor (sqrt number))
-           #t)
-          ((divisible? number divisor)
-           #f)
-          (else
-           (if (even? divisor)
-               (naive-test number (+ divisor 1))
-               (naive-test number (+ divisor 2))))))
-
-  (cond ((= number 2)
-         #t)
-        ((or (even? number)
-             (= number 1))
-         #f)
-        ((divisible? number 3)
-         #f)
-        (else
-         (6k+-1-test number 1))))
-
-(define (prime-digits? num)
-  (cond ((and (< num 10)
-              (naive-prime? num))
-         #t)
-        ((< num 10) #f)
-        (else (and (prime-digits? (modulo num 10))
-                   (prime-digits? (quotient num 10))))))
+(use-modules (prime))
 
 (define (digit-sum num)
   (if (< num 10)
@@ -51,8 +7,8 @@
          (digit-sum (quotient num 10)))))
 
 (define (funky-prime? number)
-  (and (naive-prime? number)
-       (naive-prime? (digit-sum number))
+  (and (prime? number)
+       (prime? (digit-sum number))
        (prime-digits? number)))
 
 (use-modules (ice-9 streams))
@@ -78,7 +34,7 @@
                               low)))
 
     (stream-fold (lambda (number previous)
-                   (if (naive-prime? number)
+                   (if (prime? number)
                        (cons number previous)
                        previous))
                  '()
