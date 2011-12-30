@@ -27,8 +27,9 @@
         (else #f)))
 
 (use-modules (ice-9 streams))
+(use-modules (prime))
 
-(define (palindromes-in-range low high)
+(define (palindromes-primes-in-range low high)
   (let ((numbers (make-stream (lambda (state)
                                 (if (>= state high)
                                     state
@@ -36,7 +37,8 @@
                               low)))
 
     (stream-fold (lambda (number previous)
-                   (if (palindrome? number)
+                   (if (and (prime? number)
+                            (palindrome? number))
                        (cons number previous)
                        previous))
                  '()
