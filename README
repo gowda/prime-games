@@ -1,2 +1,13 @@
-funky-prime - find a prime number which is in give range and also satisfies the
-            condition that sum of digits is prime and all digits are primes.
+# prime-games
+find a prime number which is in give range and also satisfies the condition
+that sum of digits is prime and all digits are primes.
+
+## Usage
+
+FIXME: write
+
+## License
+
+Copyright (C) 2012 Basavanagowda Kanur
+
+Distributed under the Eclipse Public License, the same as Clojure.
